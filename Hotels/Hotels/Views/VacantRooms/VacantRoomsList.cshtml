@@ -1,0 +1,42 @@
+﻿@model List<Hotels.Models.Room>
+@{
+    ViewBag.Title = "Vacant Rooms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Vacant Rooms</h2>
+<div>
+    @if (Model != null)
+    {
+        @using (Html.BeginForm("ReserveVacantRooms", "ReservationsController"))
+        {
+            foreach (var Room in Model)
+            {
+
+                <table>
+                    <thead>
+                        <tr>
+                            <td>CheckboxForBooking</td>
+                            <td>Room Number</td>
+                            <td>Room Type</td>
+                            <td>Number of beds</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+        }
+    }
+    else
+    {
+        <p>There are no vacant rooms. Please Try another date.</p>
+        @Html.ActionLink("Choose new dates", "VacantRoomsDate")
+    }
+</div>

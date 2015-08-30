@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Vacant Rooms - Date";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Vacant Rooms - Date</h2>
+@using (Html.BeginForm("VacantRoomsList", "VacantRooms"))
+{
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Choose a start date:</td>
+                    <td>
+                        <input id="StartDate" name="StartDate" type="date" value="@DateTime.Now.ToShortDateString()">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Choose an end date:</td>
+                    <td>
+                        <input id="EndDate" name="EndDate" type="date" value="@DateTime.Now.AddDays(1).ToShortDateString()">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="Submit" />
+    </div>
+}

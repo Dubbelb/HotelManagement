@@ -1,0 +1,107 @@
+﻿@model Hotels.Models.Reservation
+@{
+    ViewBag.Title = "Reservation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12">
+    <h2>Reservation</h2>
+    <div class="pull-left col-md-6">
+        <h3>Reservation information</h3>
+        <table>
+            <tr>
+                <td>Reservation Id:</td>
+                <td>@Model.Id</td>
+            </tr>
+            <tr>
+                <td>Start date:</td>
+                <td>@Model.Start.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <td>Start end:</td>
+                <td>@Model.Stop.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <td>
+                    Reservation paid:
+                </td>
+                @if (Model.Paid)
+                {
+                    <td class="text-success">Paid in full.</td>
+                }
+                else
+                {
+                    <td class="text-danger">Not paid.</td>
+                }
+            </tr>
+            <tr>
+                <td>Comment:</td>
+            </tr>
+            <tr>
+                <td>@Model.Comment</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Edit Reservation Information", "EditReservation", "Reservation", new { Id = @Model.Id })</td>
+            </tr>
+        </table>
+    </div>
+    <div class="pull-right col-md-6">
+        <h3>Customer Information:</h3>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td>@Model.Customer.FullName</td>
+            </tr>
+            <tr>
+                <td>Date of birth:</td>
+                <td>@Model.Customer.DateOfbirth</td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>@Model.Customer.PhoneNumber</td>
+            </tr>
+            <tr>
+                <td>Cellphone:</td>
+                <td>@Model.Customer.CellPhoneNumber</td>
+            </tr>
+            @if (!string.IsNullOrWhiteSpace(Model.Customer.PassPortNumber))
+            {
+                <tr>
+                    <td>Passport number:</td>
+                    <td>@Model.Customer.PassPortNumber</td>
+                </tr>
+                <tr>
+                    <td>Passport issue country:</td>
+                    <td>@Model.Customer.PassportIssueCountry.CountryName</td>
+                </tr>
+            }
+            <tr>
+                <td>@Html.ActionLink("Edit Customer Information", "EditCustomerInformation", "Customer", new { Id = @Model.Customer.Id })</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-12">
+        <h3>Reserved Rooms:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                        Room Number
+                    </td>
+                    <td>
+                        Room Type
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Room in Model.ReservedRooms)
+                {
+                    <tr>
+                        <td>@Room.RoomNumber</td>
+                        <td>@Room.RoomType</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

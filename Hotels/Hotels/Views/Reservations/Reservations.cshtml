@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Reservation>
+@using Hotels.Models
+
+<hgroup class="title">
+    <h1>Reservations</h1>
+</hgroup>
+
+<div id="UpcomingReservations" class="col-md-12 pull-left">
+    <h3>Upcoming reservations</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Reservation start</td>
+                <td>Reservation end</td>
+                <td>Guest Name</td>
+                <td>Number of reserved rooms</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Reservation in Model.Where(x=>x.Start >= DateTime.Now).OrderBy(x => x.Start))
+            {
+                <tr class="ReservationRow">
+                    <td>@Html.ActionLink(" ", "Reservation", new { Id = @Reservation.Id}, new { @class = "glyphicon-briefcase"})</td>
+                    <td>@Reservation.Start.ToShortDateString()</td>
+                    <td>@Reservation.Stop.ToShortDateString()</td>
+                    <td>@Reservation.Customer.FullName</td>
+                    <td>#nr here</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@*<div class="col-md-4 pull-right">
+    <h3>Aside Title</h3>
+    <p>
+        Use this area to provide additional information.
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Vacant Rooms", "VacantRoomsDate", "VacantRooms")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</div>*@
+
+<div id="CurrentReservations" class="col-md-12">
+    <h3>Active reservations</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Reservation start</td>
+                <td>Reservation end</td>
+                <td>Guest Name</td>
+                <td>Number of reserved rooms</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Reservation in Model.Where(x => x.Start <= DateTime.Now).OrderBy(x => x.Start))
+            {
+                <tr class="ReservationRow">
+                    <td>@Html.ActionLink(" ", "Reservation", new { Id = @Reservation.Id }, new { @class = "glyphicon-briefcase" })</td>
+                    <td>@Reservation.Start.ToShortDateString()</td>
+                    <td>@Reservation.Stop.ToShortDateString()</td>
+                    <td>@Reservation.Customer.FullName</td>
+                    <td>#nr here</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $('.ReservationRow').click(function () {
+        window.location = $(this).find('a').attr('href');
+    }).hover(function () {
+        $(this).toggleClass('table-hover');
+    });
+</script>
